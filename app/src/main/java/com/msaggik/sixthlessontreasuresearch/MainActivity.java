@@ -42,9 +42,6 @@ public class MainActivity extends AppCompatActivity {
         output = findViewById(R.id.output);
         field = findViewById(R.id.field);
 
-        output.measure(0, 0);
-        Log.i("TAG", "X = " + output.getMeasuredWidth() + " Y = " + output.getMeasuredHeight());
-
         // обработка касания TextView field
         field.setOnTouchListener(listener);
     }
