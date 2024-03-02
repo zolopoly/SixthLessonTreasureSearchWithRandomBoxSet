@@ -3,6 +3,7 @@ package com.msaggik.sixthlessontreasuresearch;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
@@ -12,6 +13,9 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final int BOUND_X = 960;
+    private static final int BOUND_Y = 1450;
 
     // поля
     private TextView output, field;
@@ -27,10 +31,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         Random random = new Random();
 
-        Supplier<Box> supplier = () -> new Box(random.nextInt(960), random.nextInt(1450));
+        Supplier<Box> supplier = () -> new Box(random.nextInt(BOUND_X), random.nextInt(BOUND_Y));
         boxes = Stream.generate(supplier)
                 .limit(10)
                 .toArray(Box[]::new);
@@ -38,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
         // привязка разметки к полям
         output = findViewById(R.id.output);
         field = findViewById(R.id.field);
+
+        output.measure(0, 0);
+        Log.i("TAG", "X = " + output.getMeasuredWidth() + " Y = " + output.getMeasuredHeight());
 
         // обработка касания TextView field
         field.setOnTouchListener(listener);
